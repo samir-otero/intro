@@ -37,8 +37,8 @@ class Character < ApplicationRecord
   scope :by_species, ->(species) { where(species: species) }
   scope :by_gender, ->(gender) { where(gender: gender) }
   scope :by_status, ->(status) { where(status: status) }
-  scope :from_location, ->(location) { where(current_location: location) }
-  scope :originated_from, ->(location) { where(origin_location: location) }
+  scope :from_location, ->(location) { where(current_location_id: location.id) if location.present? }
+  scope :originated_from, ->(location) { where(origin_location_id: location.id) if location.present? }
   scope :search_by_name, ->(name) { where('name ILIKE ?', "%#{name}%") }
 
   # Custom methods

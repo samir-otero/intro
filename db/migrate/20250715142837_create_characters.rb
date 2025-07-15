@@ -1,4 +1,4 @@
-class CreateCharacters < ActiveRecord::Migration[8.0]
+class CreateCharacters < ActiveRecord::Migration[7.0]
   def change
     create_table :characters do |t|
       t.integer :api_id
@@ -7,9 +7,8 @@ class CreateCharacters < ActiveRecord::Migration[8.0]
       t.string :species
       t.string :gender
       t.string :image_url
-      t.references :origin_location, null: false, foreign_key: true
-      t.references :current_location, null: false, foreign_key: true
-
+      t.references :origin_location, null: true, foreign_key: { to_table: :locations }
+      t.references :current_location, null: true, foreign_key: { to_table: :locations }
       t.timestamps
     end
   end

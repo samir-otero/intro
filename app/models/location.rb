@@ -18,13 +18,13 @@ class Location < ApplicationRecord
   # Validations
   validates :api_id, presence: true, uniqueness: true
   validates :name, presence: true, length: { minimum: 1, maximum: 255 }
-  validates :type, length: { maximum: 100 }
+  validates :location_type, length: { maximum: 100 }
   validates :dimension, length: { maximum: 255 }
 
   # Scopes for common queries
-  scope :planets, -> { where(type: 'Planet') }
-  scope :dimensions, -> { where(type: 'Dimension') }
-  scope :by_type, ->(type) { where(type: type) }
+  scope :planets, -> { where(location_type: 'Planet') }
+  scope :dimensions, -> { where(location_type: 'Dimension') }
+  scope :by_type, ->(type) { where(location_type: type) }
   scope :by_dimension, ->(dimension) { where(dimension: dimension) }
 
   # Custom methods

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_15_142847) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_15_145207) do
   create_table "character_episodes", force: :cascade do |t|
     t.integer "character_id", null: false
     t.integer "episode_id", null: false
@@ -27,8 +27,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_142847) do
     t.string "species"
     t.string "gender"
     t.string "image_url"
-    t.integer "origin_location_id", null: false
-    t.integer "current_location_id", null: false
+    t.integer "origin_location_id"
+    t.integer "current_location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["current_location_id"], name: "index_characters_on_current_location_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_142847) do
   create_table "locations", force: :cascade do |t|
     t.integer "api_id"
     t.string "name"
-    t.string "type"
+    t.string "location_type"
     t.string "dimension"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -55,6 +55,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_142847) do
 
   add_foreign_key "character_episodes", "characters"
   add_foreign_key "character_episodes", "episodes"
-  add_foreign_key "characters", "current_locations"
-  add_foreign_key "characters", "origin_locations"
+  add_foreign_key "characters", "locations", column: "current_location_id"
+  add_foreign_key "characters", "locations", column: "origin_location_id"
 end
