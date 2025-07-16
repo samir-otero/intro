@@ -1,0 +1,207 @@
+<div class="container">
+  <h1>About This Project</h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Data Sources</h2>
+      <p>This Ruby on Rails application pulls data from multiple sources to create a comprehensive Rick and Morty database:</p>
+
+      <h3>1. Rick and Morty API</h3>
+      <p>The primary data source is the <a href="https://rickandmortyapi.com/" target="_blank">Rick and Morty API</a>, which provides:</p>
+      <ul>
+        <li><strong>Characters:</strong> Information about all characters including their name, status, species, gender, origin, and current location</li>
+        <li><strong>Locations:</strong> Details about dimensions, planets, and other locations in the Rick and Morty universe</li>
+        <li><strong>Episodes:</strong> Complete episode information including air dates, episode codes, and character appearances</li>
+      </ul>
+
+      <h3>2. Faker Gem</h3>
+      <p>Additional variety is provided through the Faker gem, which generates:</p>
+      <ul>
+        <li>Additional fictional locations with random planet names and dimensions</li>
+        <li>Extra characters with randomized attributes to demonstrate data handling</li>
+      </ul>
+
+      <h2>Database Structure</h2>
+      <p>The database is designed with the following relationships:</p>
+
+      <h3>Models and Associations</h3>
+      <ul>
+        <li><strong>Character:</strong> Central model with references to origin and current locations</li>
+        <li><strong>Location:</strong> Has many characters as residents and as origin</li>
+        <li><strong>Episode:</strong> Connected to characters through a join table</li>
+        <li><strong>CharacterEpisode:</strong> Join table managing many-to-many relationship between characters and episodes</li>
+      </ul>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>Search functionality across characters, locations, and episodes</li>
+        <li>Filtering by status, species, and location type</li>
+        <li>Hierarchical navigation between related models</li>
+        <li>Responsive Bootstrap-based design</li>
+        <li>Comprehensive character profiles with episode appearances</li>
+        <li>Location pages showing residents and origin characters</li>
+      </ul>
+
+      <h2>Technical Implementation</h2>
+      <p>This application demonstrates:</p>
+      <ul>
+        <li>API integration and data parsing</li>
+        <li>Complex database relationships (one-to-many and many-to-many)</li>
+        <li>RESTful routing and MVC architecture</li>
+        <li>Search and filtering functionality</li>
+        <li>Responsive web design with Bootstrap</li>
+        <li>Data validation and error handling</li>
+      </ul>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Database Statistics</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li><strong>Characters:</strong> <%= Character.count %></li>
+            <li><strong>Locations:</strong> <%= Location.count %></li>
+            <li><strong>Episodes:</strong> <%= Episode.count %></li>
+            <li><strong>Character-Episode Relations:</strong> <%= CharacterEpisode.count %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header">
+          <h5>Data Sources</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li>✅ Rick and Morty API</li>
+            <li>✅ Faker Gem</li>
+            <li>✅ 200+ Database Records</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <h2>Entity Relationship Diagram</h2>
+      <div class="card">
+        <div class="card-body">
+          <pre class="text-center">
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│    Character    │    │    Location     │    │    Episode      │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ id (PK)         │    │ id (PK)         │    │ id (PK)         │
+│ api_id          │    │ api_id          │    │ api_id          │
+│ name            │    │ name            │    │ name            │
+│ status          │    │ location_type   │    │ air_date        │
+│ species         │    │ dimension       │    │ episode_code    │
+│ gender          │    │ created_at      │    │ created_at      │
+│ image_url       │    │ updated_at      │    │ updated_at      │
+│ origin_location │────┼────────────────┐│    └─────────────────┘
+│ current_location│────┼───────────────┐││
+│ created_at      │    │               │││
+│ updated_at      │    │               │││
+└─────────────────┘    └───────────────┼┼┘
+         │                             ││
+         │                             ││
+         │   ┌─────────────────────────┼┘
+         │   │                         │
+         │   │                         │
+         ▼   ▼                         ▼
+┌─────────────────┐              ┌─────────────────┐
+│CharacterEpisode │              │                 │
+├─────────────────┤              │   Location      │
+│ id (PK)         │              │                 │
+│ character_id(FK)│              │                 │
+│ episode_id (FK) │              │                 │
+│ created_at      │              │                 │
+│ updated_at      │              │                 │
+└─────────────────┘              └─────────────────┘
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><%= character.status == 'Alive' ? 'success' : character.status == 'Dead' ? 'danger' : 'secondary' %> me-1">
+                        <%= character.status %>
+                      </span>
+                      <%= character.species %>
+                    </small>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <%= link_to "View", character_path(character), class: "btn btn-sm btn-outline-primary" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @location.current_characters.count > 6 %>
+        <div class="text-center">
+          <%= link_to "View All #{@location.current_characters.count} Residents",
+                      characters_path(location: @location.id),
+                      class: "btn btn-outline-primary" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="alert alert-info">
+        No current residents found for this location.
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Originally From Here (<%= @location.origin_characters.count %>)</h3>
+
+    <% if @location.origin_characters.any? %>
+      <div class="row">
+        <% @location.origin_characters.limit(6).each do |character| %>
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <% if character.image_url.present? %>
+                    <%= image_tag character.image_url, class: "rounded-circle me-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
+                  <% end %>
+                  <div>
+                    <h6 class="card-title mb-1"><%= character.name %></h6>
+                    <small class="text-muted">
+                      <span class="badge bg-<%= character.status == 'Alive' ? 'success' : character.status == 'Dead' ? 'danger' : 'secondary' %> me-1">
+                        <%= character.status %>
+                      </span>
+                      <%= character.species %>
+                    </small>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <%= link_to "View", character_path(character), class: "btn btn-sm btn-outline-primary" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @location.origin_characters.count > 6 %>
+        <div class="text-center">
+          <%= link_to "View All #{@location.origin_characters.count} Originally From Here",
+                      characters_path(origin_location: @location.id),
+                      class: "btn btn-outline-primary" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="alert alert-info">
+        No characters originally from this location.
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%= link_to "← Back to Locations", locations_path, class: "btn btn-secondary" %>
+</div>
