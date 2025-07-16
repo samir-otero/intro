@@ -1,2 +1,90 @@
-<h1>Episodes#show</h1>
-<p>Find me in app/views/episodes/show.html.erb</p>
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @episode.name %></h1>
+
+    <div class="mb-3">
+      <span class="badge bg-warning me-2"><%= @episode.episode_code %></span>
+      <span class="badge bg-info"><%= @episode.air_date %></span>
+    </div>
+
+    <dl class="row">
+      <dt class="col-sm-3">Episode Code:</dt>
+      <dd class="col-sm-9"><%= @episode.episode_code %></dd>
+
+      <dt class="col-sm-3">Air Date:</dt>
+      <dd class="col-sm-9"><%= @episode.air_date %></dd>
+
+      <dt class="col-sm-3">Characters:</dt>
+      <dd class="col-sm-9"><%= @episode.characters.count %></dd>
+    </dl>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Episode Stats</h5>
+      </div>
+      <div class="card-body text-center">
+        <div class="row">
+          <div class="col-6">
+            <h4 class="text-primary"><%= @episode.characters.count %></h4>
+            <small class="text-muted">Total Characters</small>
+          </div>
+          <div class="col-6">
+            <h4 class="text-success"><%= @episode.characters.alive.count %></h4>
+            <small class="text-muted">Alive Characters</small>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <h4 class="text-danger"><%= @episode.characters.dead.count %></h4>
+            <small class="text-muted">Dead Characters</small>
+          </div>
+          <div class="col-6">
+            <h4 class="text-info"><%= @episode.characters.where(species: 'Human').count %></h4>
+            <small class="text-muted">Humans</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <h3>Characters in this Episode (<%= @episode.characters.count %>)</h3>
+
+    <% if @episode.characters.any? %>
+      <div class="row">
+        <% @episode.characters.each do |character| %>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <% if character.image_url.present? %>
+                    <%= image_tag character.image_url, class: "rounded-circle me-3", style: "width: 60px; height: 60px; object-fit: cover;" %>
+                  <% end %>
+                  <div>
+                    <h6 class="card-title mb-1"><%= character.name %></h6>
+                    <div class="mb-1">
+                      <span class="badge bg-<%= character.status == 'Alive' ? 'success' : character.status == 'Dead' ? 'danger' : 'secondary' %> me-1">
+                        <%= character.status %>
+                      </span>
+                      <span class="badge bg-secondary"><%= character.species %></span>
+                    </div>
+                    <small class="text-muted">
+                      <strong>Origin:</strong> <%= character.origin_location&.name || 'Unknown' %><br>
+                      <strong>Current:</strong> <%= character.current_location&.name || 'Unknown' %>
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">No characters associated with this episode.</p>
+    <% end %>
+  </div>
+</div>

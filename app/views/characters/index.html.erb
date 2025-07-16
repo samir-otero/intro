@@ -1,2 +1,82 @@
-<h1>Characters#index</h1>
-<p>Find me in app/views/characters/index.html.erb</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Characters</h1>
+
+  <!-- Search and Filter Form -->
+  <div class="d-flex gap-2">
+    <%= form_with url: characters_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+      <%= f.text_field :search, placeholder: "Search by name...", value: params[:search], class: "form-control" %>
+      <%= f.select :status, options_for_select([['All Statuses', ''], ['Alive', 'Alive'], ['Dead', 'Dead'], ['Unknown', 'unknown']], params[:status]), {}, { class: "form-select" } %>
+      <%= f.select :species, options_for_select([['All Species', '']] + @species_options, params[:species]), {}, { class: "form-select" } %>
+      <%= f.submit "Filter", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <p class="text-muted">Showing <%= @characters.count %> of <%= @total_characters %> characters</p>
+  </div>
+  <div class="col-md-6 text-end">
+    <% if params[:search].present? || params[:status].present? || params[:species].present? %>
+      <%= link_to "Clear Filters", characters_path, class: "btn btn-outline-secondary btn-sm" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <% @characters.each do |character| %>
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <% if character.image_url.present? %>
+          <%= image_tag character.image_url, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+        <% else %>
+          <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+            <span class="text-muted">No Image</span>
+          </div>
+        <% end %>
+
+        <div class="card-body">
+          <h5 class="card-title"><%= character.name %></h5>
+
+          <div class="mb-2">
+            <span class="badge bg-<%= character.status == 'Alive' ? 'success' : character.status == 'Dead' ? 'danger' : 'secondary' %>">
+              <%= character.status %>
+            </span>
+            <span class="badge bg-info"><%= character.species %></span>
+          </div>
+
+          <p class="card-text">
+            <small class="text-muted">
+              <strong>Gender:</strong> <%= character.gender %><br>
+              <% if character.origin_location %>
+                <strong>Origin:</strong> <%= character.origin_location.name %><br>
+              <% end %>
+              <% if character.current_location %>
+                <strong>Location:</strong> <%= character.current_location.name %>
+              <% end %>
+            </small>
+          </p>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to "View Details", character_path(character), class: "btn btn-primary btn-sm" %>
+          <span class="text-muted float-end">
+            <small><%= character.character_episodes.count %> episodes</small>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @characters.empty? %>
+  <div class="alert alert-info text-center">
+    <h4>No characters found</h4>
+    <p>Try adjusting your search criteria or filters.</p>
+  </div>
+<% end %>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center">
+  <%= paginate @characters if respond_to?(:paginate) %>
+</div>

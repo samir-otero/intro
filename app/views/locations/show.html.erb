@@ -1,2 +1,94 @@
-<h1>Locations#show</h1>
-<p>Find me in app/views/locations/show.html.erb</p>
+<h1><%= @location.name %></h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Location Details</h5>
+      </div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-4">Type:</dt>
+          <dd class="col-sm-8">
+            <span class="badge bg-primary"><%= @location.location_type %></span>
+          </dd>
+
+          <dt class="col-sm-4">Dimension:</dt>
+          <dd class="col-sm-8"><%= @location.dimension %></dd>
+
+          <dt class="col-sm-4">Residents:</dt>
+          <dd class="col-sm-8"><%= @location.current_characters.count %></dd>
+
+          <dt class="col-sm-4">Origin for:</dt>
+          <dd class="col-sm-8"><%= @location.origin_characters.count %> characters</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Quick Stats</h5>
+      </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="col-4">
+            <h4 class="text-primary"><%= @location.current_characters.count %></h4>
+            <small class="text-muted">Current Residents</small>
+          </div>
+          <div class="col-4">
+            <h4 class="text-success"><%= @location.origin_characters.count %></h4>
+            <small class="text-muted">Originally From</small>
+          </div>
+          <div class="col-4">
+            <h4 class="text-info"><%= @location.current_characters.alive.count %></h4>
+            <small class="text-muted">Alive Residents</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Current Residents (<%= @location.current_characters.count %>)</h3>
+
+    <% if @location.current_characters.any? %>
+      <div class="row">
+        <% @location.current_characters.limit(6).each do |character| %>
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <% if character.image_url.present? %>
+                    <%= image_tag character.image_url, class: "rounded-circle me-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
+                  <% end %>
+                  <div>
+                    <h6 class="card-title mb-1"><%= character.name %></h6>
+                    <small class="text-muted">
+                      <span class="badge bg-info"><%= character.species %></span>
+                    </div>
+                    <small class="text-muted"><%= character.gender %></small>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <%= link_to "View Character", character_path(character), class: "btn btn-sm btn-outline-primary" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info">
+        No characters found for this episode.
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%= link_to "← Back to Episodes", episodes_path, class: "btn btn-secondary" %>
+</div>

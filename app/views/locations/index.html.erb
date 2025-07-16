@@ -1,2 +1,66 @@
-<h1>Locations#index</h1>
-<p>Find me in app/views/locations/index.html.erb</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Locations</h1>
+
+  <!-- Search and Filter Form -->
+  <div class="d-flex gap-2">
+    <%= form_with url: locations_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+      <%= f.text_field :search, placeholder: "Search locations...", value: params[:search], class: "form-control" %>
+      <%= f.select :location_type, options_for_select([['All Types', '']] + @location_types, params[:location_type]), {}, { class: "form-select" } %>
+      <%= f.submit "Filter", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <p class="text-muted">Showing <%= @locations.count %> of <%= @total_locations %> locations</p>
+  </div>
+  <div class="col-md-6 text-end">
+    <% if params[:search].present? || params[:location_type].present? %>
+      <%= link_to "Clear Filters", locations_path, class: "btn btn-outline-secondary btn-sm" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <% @locations.each do |location| %>
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= location.name %></h5>
+
+          <div class="mb-2">
+            <span class="badge bg-primary"><%= location.location_type %></span>
+          </div>
+
+          <p class="card-text">
+            <strong>Dimension:</strong> <%= location.dimension %><br>
+            <small class="text-muted">
+              <strong>Residents:</strong> <%= location.current_characters.count %><br>
+              <strong>Origin for:</strong> <%= location.origin_characters.count %> characters
+            </small>
+          </p>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to "View Details", location_path(location), class: "btn btn-primary btn-sm" %>
+          <span class="text-muted float-end">
+            <small><%= location.current_characters.count %> residents</small>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @locations.empty? %>
+  <div class="alert alert-info text-center">
+    <h4>No locations found</h4>
+    <p>Try adjusting your search criteria or filters.</p>
+  </div>
+<% end %>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center">
+  <%= paginate @locations if respond_to?(:paginate) %>
+</div>

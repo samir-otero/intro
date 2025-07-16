@@ -1,2 +1,64 @@
-<h1>Episodes#index</h1>
-<p>Find me in app/views/episodes/index.html.erb</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Episodes</h1>
+
+  <!-- Search Form -->
+  <div class="d-flex gap-2">
+    <%= form_with url: episodes_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+      <%= f.text_field :search, placeholder: "Search episodes...", value: params[:search], class: "form-control" %>
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6">
+    <p class="text-muted">Showing <%= @episodes.count %> of <%= @total_episodes %> episodes</p>
+  </div>
+  <div class="col-md-6 text-end">
+    <% if params[:search].present? %>
+      <%= link_to "Clear Search", episodes_path, class: "btn btn-outline-secondary btn-sm" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <% @episodes.each do |episode| %>
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= episode.name %></h5>
+
+          <div class="mb-2">
+            <span class="badge bg-warning"><%= episode.episode_code %></span>
+          </div>
+
+          <p class="card-text">
+            <strong>Air Date:</strong> <%= episode.air_date %><br>
+            <small class="text-muted">
+              <strong>Characters:</strong> <%= episode.characters.count %>
+            </small>
+          </p>
+        </div>
+
+        <div class="card-footer">
+          <%= link_to "View Details", episode_path(episode), class: "btn btn-primary btn-sm" %>
+          <span class="text-muted float-end">
+            <small><%= episode.characters.count %> characters</small>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @episodes.empty? %>
+  <div class="alert alert-info text-center">
+    <h4>No episodes found</h4>
+    <p>Try adjusting your search criteria.</p>
+  </div>
+<% end %>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center">
+  <%= paginate @episodes if respond_to?(:paginate) %>
+</div>
