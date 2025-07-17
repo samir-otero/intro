@@ -7,9 +7,10 @@ class EpisodesController < ApplicationController
 
     # Search functionality
     if params[:search].present?
-      @episodes = @episodes.where("name ILIKE ? OR episode_code ILIKE ?",
-                                  "%#{params[:search]}%", "%#{params[:search]}%")
+      term = "%#{params[:search].downcase}%"
+      @episodes = @episodes.where("LOWER(name) LIKE ? OR LOWER(episode_code) LIKE ?", term, term)
     end
+
 
     # Include associated models to avoid N+1 queries
     @episodes = @episodes.includes(:characters)

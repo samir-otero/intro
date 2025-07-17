@@ -8,8 +8,10 @@ class LocationsController < ApplicationController
 
     # Search functionality
     if params[:search].present?
-      @locations = @locations.where("name ILIKE ?", "%#{params[:search]}%")
+      query = "%#{params[:search].downcase}%"
+      @locations = @locations.where("LOWER(name) LIKE ?", query)
     end
+
 
     # Filter by location type
     if params[:location_type].present?

@@ -8,8 +8,10 @@ class CharactersController < ApplicationController
 
     # Search functionality
     if params[:search].present?
-      @characters = @characters.where("name ILIKE ?", "%#{params[:search]}%")
+      query = "%#{params[:search].downcase}%"
+      @characters = @characters.where("LOWER(name) LIKE ?", query)
     end
+
 
     # Filter by status
     if params[:status].present?
