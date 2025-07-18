@@ -35,8 +35,9 @@ class LocationsController < ApplicationController
   end
 
   def set_filter_options
-    @location_types = Location.distinct.pluck(:location_type).compact.sort.map { |t| [t, t] }
+    @location_types = Location.distinct.pluck(:location_type).compact.uniq.sort
   end
+
 
   def page_number
     params[:page].to_i > 0 ? params[:page].to_i : 1
