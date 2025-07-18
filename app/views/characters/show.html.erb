@@ -1,85 +1,108 @@
-<div class="row">
-  <div class="col-md-4">
-    <% if @character.image_url.present? %>
-      <%= image_tag @character.image_url, class: "img-fluid rounded shadow" %>
-    <% else %>
-      <div class="bg-light rounded shadow d-flex align-items-center justify-content-center" style="height: 300px;">
-        <span class="text-muted">No Image Available</span>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-8">
-    <h1><%= @character.name %></h1>
-
-    <div class="mb-3">
-      <span class="badge bg-<%= @character.status == 'Alive' ? 'success' : @character.status == 'Dead' ? 'danger' : 'secondary' %> me-2">
-        <%= @character.status %>
-      </span>
-      <span class="badge bg-info me-2"><%= @character.species %></span>
-      <span class="badge bg-warning"><%= @character.gender %></span>
+<div class="sci-fi-bg">
+  <div class="row">
+    <div class="col-md-4">
+      <% if @character.image_url.present? %>
+        <%= image_tag @character.image_url, class: "img-fluid rounded shadow neon-glow" %>
+      <% else %>
+        <div class="bg-dark rounded shadow d-flex align-items-center justify-content-center neon-glow" style="height: 300px;">
+          <i class="fas fa-user-astronaut fa-5x text-rick-green"></i>
+        </div>
+      <% end %>
     </div>
-
-    <dl class="row">
-      <dt class="col-sm-3">Species:</dt>
-      <dd class="col-sm-9"><%= @character.species %></dd>
-
-      <dt class="col-sm-3">Status:</dt>
-      <dd class="col-sm-9"><%= @character.status %></dd>
-
-      <dt class="col-sm-3">Gender:</dt>
-      <dd class="col-sm-9"><%= @character.gender %></dd>
-
-      <% if @character.origin_location %>
-        <dt class="col-sm-3">Origin:</dt>
-        <dd class="col-sm-9">
-          <%= link_to @character.origin_location.name, location_path(@character.origin_location), class: "text-decoration-none" %>
-          <small class="text-muted">(<%= @character.origin_location.location_type %>)</small>
-        </dd>
-      <% end %>
-
-      <% if @character.current_location %>
-        <dt class="col-sm-3">Current Location:</dt>
-        <dd class="col-sm-9">
-          <%= link_to @character.current_location.name, location_path(@character.current_location), class: "text-decoration-none" %>
-          <small class="text-muted">(<%= @character.current_location.location_type %>)</small>
-        </dd>
-      <% end %>
-    </dl>
+    <div class="col-md-8">
+      <h1 class="mb-3">
+        <i class="fas fa-user-circle me-2"></i><%= @character.name %>
+      </h1>
+      <div class="mb-3">
+        <span class="badge bg-<%= @character.status == 'Alive' ? 'success' : @character.status == 'Dead' ? 'danger' : 'secondary' %>
+                     me-2 status-<%= @character.status.downcase %>">
+          <i class="fas fa-<%= @character.status == 'Alive' ? 'heartbeat' : @character.status == 'Dead' ? 'skull' : 'question' %> me-1"></i>
+          <%= @character.status %>
+        </span>
+        <span class="badge bg-info me-2">
+          <i class="fas fa-dna me-1"></i><%= @character.species %>
+        </span>
+        <span class="badge bg-warning">
+          <i class="fas fa-venus-mars me-1"></i><%= @character.gender %>
+        </span>
+      </div>
+      <dl class="row">
+        <dt class="col-sm-3 text-rick-green">
+          <i class="fas fa-dna me-1"></i>Species:
+        </dt>
+        <dd class="col-sm-9"><%= @character.species %></dd>
+        <dt class="col-sm-3 text-rick-green">
+          <i class="fas fa-heartbeat me-1"></i>Status:
+        </dt>
+        <dd class="col-sm-9"><%= @character.status %></dd>
+        <dt class="col-sm-3 text-rick-green">
+          <i class="fas fa-venus-mars me-1"></i>Gender:
+        </dt>
+        <dd class="col-sm-9"><%= @character.gender %></dd>
+        <% if @character.origin_location %>
+          <dt class="col-sm-3 text-rick-green">
+            <i class="fas fa-home me-1"></i>Origin:
+          </dt>
+          <dd class="col-sm-9">
+            <%= link_to @character.origin_location.name, location_path(@character.origin_location), class: "text-portal-blue text-decoration-none" %>
+            <small class="text-muted">(<%= @character.origin_location.location_type %>)</small>
+          </dd>
+        <% end %>
+        <% if @character.current_location %>
+          <dt class="col-sm-3 text-rick-green">
+            <i class="fas fa-map-marker-alt me-1"></i>Current Location:
+          </dt>
+          <dd class="col-sm-9">
+            <%= link_to @character.current_location.name, location_path(@character.current_location), class: "text-portal-blue text-decoration-none" %>
+            <small class="text-muted">(<%= @character.current_location.location_type %>)</small>
+          </dd>
+        <% end %>
+      </dl>
+    </div>
   </div>
 </div>
 
 <div class="row mt-4">
-  <div class="col-12">
-    <h3>Episodes (<%= @character.episodes.count %>)</h3>
-
-    <% if @character.episodes.any? %>
-      <div class="row">
-        <% @character.episodes.each do |episode| %>
-          <div class="col-md-6 col-lg-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="card-title"><%= episode.name %></h6>
-                <p class="card-text">
-                  <small class="text-muted">
-                    <strong>Episode:</strong> <%= episode.episode_code %><br>
-                    <strong>Air Date:</strong> <%= episode.air_date %>
-                  </small>
-                </p>
-                <%= link_to "View Episode", episode_path(episode), class: "btn btn-sm btn-outline-primary" %>
+      <div class="col-12">
+      <div class="sci-fi-bg">
+        <h3 class="text-portal-blue mb-3">
+          <i class="fas fa-tv me-2"></i>Episodes (<%= @character.episodes.count %>)
+        </h3>
+        <% if @character.episodes.any? %>
+          <div class="row">
+            <% @character.episodes.each do |episode| %>
+              <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card rick-card">
+                  <div class="card-body">
+                    <h6 class="card-title text-toxic-green">
+                      <i class="fas fa-play-circle me-1"></i><%= episode.name %>
+                    </h6>
+                    <p class="card-text">
+                      <small class="text-muted">
+                        <strong><i class="fas fa-hashtag me-1"></i>Episode:</strong> <%= episode.episode_code %><br>
+                        <strong><i class="fas fa-calendar-alt me-1"></i>Air Date:</strong> <%= episode.air_date %>
+                      </small>
+                    </p>
+                    <%= link_to episode_path(episode), class: "btn btn-sm btn-outline-primary portal-btn" do %>
+                      <i class="fas fa-external-link-alt me-1"></i>View Episode
+                    <% end %>
+                  </div>
+                </div>
               </div>
-            </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>This character doesn't appear in any episodes.
           </div>
         <% end %>
       </div>
-    <% else %>
-      <div class="alert alert-info">
-        This character doesn't appear in any episodes.
-      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to characters_path, class: "btn btn-secondary portal-btn" do %>
+      <i class="fas fa-arrow-left me-2"></i>Back to Characters
     <% end %>
   </div>
-</div>
-
-<div class="mt-4">
-  <%= link_to "← Back to Characters", characters_path, class: "btn btn-secondary" %>
 </div>

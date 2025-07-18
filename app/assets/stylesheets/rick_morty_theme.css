@@ -1,0 +1,503 @@
+/* Rick and Morty Custom Styles */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* Custom CSS Variables for Rick and Morty Theme */
+:root {
+  --rick-green: #00ff41;
+  --morty-yellow: #ffff00;
+  --portal-blue: #00d4ff;
+  --space-purple: #6a0dad;
+  --toxic-green: #39ff14;
+  --dark-space: #0a0a0a;
+  --dark-purple: #2d1b69;
+  --neon-pink: #ff10f0;
+  --sci-fi-gray: #1a1a1a;
+  --portal-gradient: linear-gradient(135deg, var(--portal-blue), var(--rick-green));
+  --space-gradient: linear-gradient(135deg, var(--dark-space), var(--dark-purple));
+  --toxic-gradient: linear-gradient(135deg, var(--toxic-green), var(--rick-green));
+}
+
+/* Body and Base Styles */
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--space-gradient);
+  color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Background Stars */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(2px 2px at 20px 30px, #eee, transparent), radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.5), transparent), radial-gradient(1px 1px at 90px 40px, #fff, transparent), radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+h1 { color: var(--rick-green); }
+h2 { color: var(--portal-blue); }
+h3 { color: var(--toxic-green); }
+
+/* Custom Navbar */
+.navbar {
+  background: linear-gradient(135deg, var(--dark-space), var(--dark-purple)) !important;
+  border-bottom: 2px solid var(--rick-green);
+  box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+}
+
+.navbar-brand {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  color: var(--rick-green) !important;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+  font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-nav .nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--portal-blue);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::before {
+  width: 100%;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--portal-blue) !important;
+  text-shadow: 0 0 5px rgba(0, 212, 255, 0.8);
+}
+
+/* Portal Button Styles */
+.portal-btn {
+  background: var(--portal-gradient);
+  border: none;
+  color: white;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.portal-btn:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+.portal-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
+}
+
+/* Rick Card Styles */
+.rick-card {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(45, 27, 105, 0.9));
+  border: 2px solid var(--rick-green);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 255, 65, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.rick-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+  transition: all 0.8s ease;
+}
+
+.rick-card:hover::before {
+  left: 100%;
+}
+
+.rick-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 255, 65, 0.4);
+  border-color: var(--portal-blue);
+}
+
+.rick-card .card-title {
+  color: var(--rick-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+}
+
+.rick-card .card-text {
+  color: #cccccc;
+}
+
+/* Sci-fi Background */
+.sci-fi-bg {
+  background: radial-gradient(ellipse at center, rgba(106, 13, 173, 0.3) 0%, transparent 70%), linear-gradient(135deg, var(--dark-space), var(--dark-purple));
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1rem 0;
+}
+
+/* Custom Badges */
+.badge {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.badge.bg-success {
+  background: var(--toxic-gradient) !important;
+  color: var(--dark-space) !important;
+  text-shadow: none;
+}
+
+.badge.bg-danger {
+  background: linear-gradient(135deg, #ff1744, #d50000) !important;
+  color: white !important;
+}
+
+.badge.bg-info {
+  background: linear-gradient(135deg, var(--portal-blue), var(--space-purple)) !important;
+  color: white !important;
+}
+
+.badge.bg-warning {
+  background: linear-gradient(135deg, var(--morty-yellow), #ffa000) !important;
+  color: var(--dark-space) !important;
+}
+
+.badge.bg-secondary {
+  background: linear-gradient(135deg, #757575, #424242) !important;
+  color: white !important;
+}
+
+/* Neon Glow Effects */
+.neon-glow {
+  animation: neon-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), 0 0 30px rgba(0, 255, 65, 0.6);
+  }
+}
+
+/* Pulse Animation */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Portal Spinner */
+.portal-spinner {
+  animation: portal-spin 1s linear infinite;
+}
+
+@keyframes portal-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom Form Styles */
+.form-control {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid var(--rick-green);
+  color: #ffffff;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.form-control:focus {
+  background: rgba(26, 26, 26, 0.9);
+  border-color: var(--portal-blue);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  color: #ffffff;
+}
+
+.form-control::placeholder {
+  color: #888888;
+}
+
+.form-select {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid var(--rick-green);
+  color: #ffffff;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.form-select:focus {
+  background: rgba(26, 26, 26, 0.9);
+  border-color: var(--portal-blue);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  color: #ffffff;
+}
+
+/* Custom Button Variations */
+.btn-primary {
+  background: var(--portal-gradient);
+  border: none;
+  border-radius: 25px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
+}
+
+.btn-outline-light {
+  border: 2px solid var(--rick-green);
+  color: var(--rick-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  border-radius: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-outline-light:hover {
+  background: var(--rick-green);
+  color: var(--dark-space);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #757575, #424242);
+  border: none;
+  border-radius: 25px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-outline-secondary {
+  border: 2px solid #757575;
+  color: #757575;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  border-radius: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Footer Styles */
+footer {
+  background: linear-gradient(135deg, var(--dark-space), var(--dark-purple)) !important;
+  border-top: 2px solid var(--rick-green);
+  margin-top: 3rem;
+}
+
+footer a {
+  color: var(--portal-blue) !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--rick-green) !important;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 15px;
+  border: none;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(106, 13, 173, 0.2));
+  color: var(--portal-blue);
+  border: 2px solid var(--portal-blue);
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid var(--rick-green);
+  color: var(--rick-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  margin: 0 2px;
+  border-radius: 10px;
+}
+
+.pagination .page-link:hover {
+  background: var(--rick-green);
+  color: var(--dark-space);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.pagination .page-item.active .page-link {
+  background: var(--portal-gradient);
+  border-color: var(--portal-blue);
+  color: white;
+}
+
+/* Image Hover Effects */
+.card-img-top {
+  transition: all 0.3s ease;
+  border-radius: 15px 15px 0 0;
+}
+
+.card-img-top:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Custom Utility Classes */
+.text-rick-green { color: var(--rick-green) !important; }
+.text-portal-blue { color: var(--portal-blue) !important; }
+.text-toxic-green { color: var(--toxic-green) !important; }
+.text-morty-yellow { color: var(--morty-yellow) !important; }
+.text-neon-pink { color: var(--neon-pink) !important; }
+
+.bg-rick-green { background-color: var(--rick-green) !important; }
+.bg-portal-blue { background-color: var(--portal-blue) !important; }
+.bg-toxic-green { background-color: var(--toxic-green) !important; }
+.bg-space-gradient { background: var(--space-gradient) !important; }
+.bg-portal-gradient { background: var(--portal-gradient) !important; }
+
+/* Special Effects for Character Status */
+.status-alive {
+  animation: pulse-green 3s infinite;
+}
+
+.status-dead {
+  animation: fade-red 3s infinite;
+}
+
+.status-unknown {
+  animation: flicker-gray 3s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes fade-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes flicker-gray {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.8; }
+  50% { opacity: 0.6; }
+  75% { opacity: 0.9; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .portal-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .rick-card {
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .sci-fi-bg {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .portal-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .badge {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .rick-card {
+    border-radius: 10px;
+  }
+}
