@@ -1,18 +1,19 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>Episodes</h1>
-
-  <!-- Search Form -->
-  <div class="d-flex gap-2">
-    <%= form_with url: episodes_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
-      <%= f.text_field :search, placeholder: "Search episodes...", value: params[:search], class: "form-control", id: "search-field" %>
-      <%= f.submit "Search", class: "btn btn-primary" %>
-    <% end %>
+<div class="sci-fi-bg mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-rick-green">Episodes</h1>
+    <!-- Search Form -->
+    <div class="d-flex gap-2">
+      <%= form_with url: episodes_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+        <%= f.text_field :search, placeholder: "Search episodes...", value: params[:search], class: "form-control", id: "search-field" %>
+        <%= f.submit "Search", class: "portal-btn" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="row mb-3">
   <div class="col-md-6">
-    <p class="text-muted">Showing <%= @episodes.count %> of <%= @total_episodes %> episodes</p>
+    <p class="text-muted">Showing <span class="text-portal-blue"><%= @episodes.count %></span> of <span class="text-rick-green"><%= @total_episodes %></span> episodes</p>
   </div>
   <div class="col-md-6 text-end">
     <% if params[:search].present? %>
@@ -24,26 +25,23 @@
 <div class="row">
   <% @episodes.each do |episode| %>
     <div class="col-md-6 col-lg-4 mb-4">
-      <div class="card h-100">
+      <div class="rick-card h-100">
         <div class="card-body">
-          <h5 class="card-title"><%= episode.name %></h5>
-
+          <h5 class="card-title text-rick-green"><%= episode.name %></h5>
           <div class="mb-2">
             <span class="badge bg-warning"><%= episode.episode_code %></span>
           </div>
-
           <p class="card-text">
-            <strong>Air Date:</strong> <%= episode.air_date %><br>
+            <strong class="text-portal-blue">Air Date:</strong> <span class="text-toxic-green"><%= episode.air_date %></span><br>
             <small class="text-muted">
-              <strong>Characters:</strong> <%= episode.characters.count %>
+              <strong class="text-portal-blue">Characters:</strong> <span class="text-rick-green"><%= episode.characters.count %></span>
             </small>
           </p>
         </div>
-
-        <div class="card-footer">
-          <%= link_to "View Details", episode_path(episode), class: "btn btn-primary btn-sm" %>
+        <div class="card-footer bg-space-gradient">
+          <%= link_to "View Details", episode_path(episode), class: "portal-btn btn-sm" %>
           <span class="text-muted float-end">
-            <small><%= episode.characters.count %> characters</small>
+            <small class="text-portal-blue"><%= episode.characters.count %> characters</small>
           </span>
         </div>
       </div>
@@ -52,9 +50,9 @@
 </div>
 
 <% if @episodes.empty? %>
-  <div class="alert alert-info text-center">
-    <h4>No episodes found</h4>
-    <p>Try adjusting your search criteria.</p>
+  <div class="alert alert-info text-center sci-fi-bg">
+    <h4 class="text-rick-green">No episodes found</h4>
+    <p class="text-portal-blue">Try adjusting your search criteria.</p>
   </div>
 <% end %>
 

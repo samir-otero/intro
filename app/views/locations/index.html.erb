@@ -1,19 +1,21 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>Locations</h1>
+<div class="sci-fi-bg mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-rick-green">Locations</h1>
 
-  <!-- Search and Filter Form -->
-  <div class="d-flex gap-2">
-    <%= form_with url: locations_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
-      <%= f.text_field :search, placeholder: "Search locations...", value: params[:search], class: "form-control", id: "search-field" %>
-      <%= f.select :location_type, options_for_select([['All Types', nil]] + @location_types.map { |t| [t, t] }, params[:location_type]), {}, { class: "form-select" } %>
-      <%= f.submit "Filter", class: "btn btn-primary" %>
-    <% end %>
+    <!-- Search and Filter Form -->
+    <div class="d-flex gap-2">
+      <%= form_with url: locations_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+        <%= f.text_field :search, placeholder: "Search locations...", value: params[:search], class: "form-control", id: "search-field" %>
+        <%= f.select :location_type, options_for_select([['All Types', nil]] + @location_types.map { |t| [t, t] }, params[:location_type]), {}, { class: "form-select" } %>
+        <%= f.submit "Filter", class: "portal-btn" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="row mb-3">
   <div class="col-md-6">
-    <p class="text-muted">Showing <%= @locations.count %> of <%= @total_locations %> locations</p>
+    <p class="text-muted">Showing <span class="text-portal-blue"><%= @locations.count %></span> of <span class="text-rick-green"><%= @total_locations %></span> locations</p>
   </div>
   <div class="col-md-6 text-end">
     <% if params[:search].present? || params[:location_type].present? %>
@@ -25,27 +27,27 @@
 <div class="row">
   <% @locations.each do |location| %>
     <div class="col-md-6 col-lg-4 mb-4">
-      <div class="card h-100">
+      <div class="rick-card h-100">
         <div class="card-body">
-          <h5 class="card-title"><%= location.name %></h5>
+          <h5 class="card-title text-rick-green"><%= location.name %></h5>
 
           <div class="mb-2">
             <span class="badge bg-primary"><%= location.location_type %></span>
           </div>
 
           <p class="card-text">
-            <strong>Dimension:</strong> <%= location.dimension %><br>
+            <strong class="text-portal-blue">Dimension:</strong> <span class="text-toxic-green"><%= location.dimension %></span><br>
             <small class="text-muted">
-              <strong>Residents:</strong> <%= location.current_characters.count %><br>
-              <strong>Origin for:</strong> <%= location.origin_characters.count %> characters
+              <strong class="text-portal-blue">Residents:</strong> <span class="text-rick-green"><%= location.current_characters.count %></span><br>
+              <strong class="text-portal-blue">Origin for:</strong> <span class="text-toxic-green"><%= location.origin_characters.count %></span> characters
             </small>
           </p>
         </div>
 
-        <div class="card-footer">
-          <%= link_to "View Details", location_path(location), class: "btn btn-primary btn-sm" %>
+        <div class="card-footer bg-space-gradient">
+          <%= link_to "View Details", location_path(location), class: "portal-btn btn-sm" %>
           <span class="text-muted float-end">
-            <small><%= location.current_characters.count %> residents</small>
+            <small class="text-portal-blue"><%= location.current_characters.count %> residents</small>
           </span>
         </div>
       </div>
@@ -54,9 +56,9 @@
 </div>
 
 <% if @locations.empty? %>
-  <div class="alert alert-info text-center">
-    <h4>No locations found</h4>
-    <p>Try adjusting your search criteria or filters.</p>
+  <div class="alert alert-info text-center sci-fi-bg">
+    <h4 class="text-rick-green">No locations found</h4>
+    <p class="text-portal-blue">Try adjusting your search criteria or filters.</p>
   </div>
 <% end %>
 

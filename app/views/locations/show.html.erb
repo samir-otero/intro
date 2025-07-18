@@ -1,48 +1,50 @@
-<h1><%= @location.name %></h1>
+<div class="sci-fi-bg mb-4">
+  <h1 class="text-rick-green neon-glow"><%= @location.name %></h1>
+</div>
 
 <div class="row">
   <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Location Details</h5>
+    <div class="rick-card">
+      <div class="card-header bg-space-gradient">
+        <h5 class="text-rick-green">Location Details</h5>
       </div>
       <div class="card-body">
         <dl class="row">
-          <dt class="col-sm-4">Type:</dt>
+          <dt class="col-sm-4 text-portal-blue">Type:</dt>
           <dd class="col-sm-8">
             <span class="badge bg-primary"><%= @location.location_type %></span>
           </dd>
 
-          <dt class="col-sm-4">Dimension:</dt>
-          <dd class="col-sm-8"><%= @location.dimension %></dd>
+          <dt class="col-sm-4 text-portal-blue">Dimension:</dt>
+          <dd class="col-sm-8 text-toxic-green"><%= @location.dimension %></dd>
 
-          <dt class="col-sm-4">Residents:</dt>
-          <dd class="col-sm-8"><%= @location.current_characters.count %></dd>
+          <dt class="col-sm-4 text-portal-blue">Residents:</dt>
+          <dd class="col-sm-8 text-rick-green"><%= @location.current_characters.count %></dd>
 
-          <dt class="col-sm-4">Origin for:</dt>
-          <dd class="col-sm-8"><%= @location.origin_characters.count %> characters</dd>
+          <dt class="col-sm-4 text-portal-blue">Origin for:</dt>
+          <dd class="col-sm-8 text-toxic-green"><%= @location.origin_characters.count %> characters</dd>
         </dl>
       </div>
     </div>
   </div>
 
   <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Quick Stats</h5>
+    <div class="rick-card">
+      <div class="card-header bg-space-gradient">
+        <h5 class="text-toxic-green">Quick Stats</h5>
       </div>
       <div class="card-body">
         <div class="row text-center">
           <div class="col-4">
-            <h4 class="text-primary"><%= @location.current_characters.count %></h4>
+            <h4 class="text-portal-blue pulse"><%= @location.current_characters.count %></h4>
             <small class="text-muted">Current Residents</small>
           </div>
           <div class="col-4">
-            <h4 class="text-success"><%= @location.origin_characters.count %></h4>
+            <h4 class="text-rick-green pulse"><%= @location.origin_characters.count %></h4>
             <small class="text-muted">Originally From</small>
           </div>
           <div class="col-4">
-            <h4 class="text-info"><%= @location.current_characters.alive.count %></h4>
+            <h4 class="text-toxic-green pulse"><%= @location.current_characters.alive.count %></h4>
             <small class="text-muted">Alive Residents</small>
           </div>
         </div>
@@ -52,43 +54,111 @@
 </div>
 
 <div class="row mt-4">
-  <div class="col-md-6">
-    <h3>Current Residents (<%= @location.current_characters.count %>)</h3>
+  <div class="col-md-12">
+    <div class="sci-fi-bg">
+      <h3 class="text-rick-green">Current Residents (<span class="text-portal-blue"><%= @location.current_characters.count %></span>)</h3>
 
-    <% if @location.current_characters.any? %>
-      <div class="row">
-        <% @location.current_characters.limit(6).each do |character| %>
-          <div class="col-md-6 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <% if character.image_url.present? %>
-                    <%= image_tag character.image_url, class: "rounded-circle me-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
-                  <% end %>
-                  <div>
-                    <h6 class="card-title mb-1"><%= character.name %></h6>
-                    <small class="text-muted">
-                      <span class="badge bg-info"><%= character.species %></span>
+      <% if @location.current_characters.any? %>
+        <div class="row">
+          <% @location.current_characters.limit(6).each do |character| %>
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div class="rick-card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <% if character.image_url.present? %>
+                      <%= image_tag character.image_url, class: "rounded-circle me-3 neon-glow", style: "width: 50px; height: 50px; object-fit: cover; border: 2px solid var(--portal-blue);" %>
+                    <% end %>
+                    <div>
+                      <h6 class="card-title mb-1 text-rick-green"><%= character.name %></h6>
+                      <div class="mb-1">
+                        <span class="badge bg-info"><%= character.species %></span>
+                      </div>
+                      <small class="text-muted text-portal-blue"><%= character.gender %></small>
                     </div>
-                    <small class="text-muted"><%= character.gender %></small>
                   </div>
-                </div>
-                <div class="mt-2">
-                  <%= link_to "View Character", character_path(character), class: "btn btn-sm btn-outline-primary" %>
+                  <div class="mt-2">
+                    <%= link_to "View Character", character_path(character), class: "portal-btn btn-sm" %>
+                  </div>
                 </div>
               </div>
             </div>
+          <% end %>
+        </div>
+
+        <% if @location.current_characters.count > 6 %>
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Showing first 6 residents.
+              <span class="text-portal-blue"><%= @location.current_characters.count - 6 %></span> more residents available.
+            </p>
           </div>
         <% end %>
-      </div>
-    <% else %>
-      <div class="alert alert-info">
-        No characters found for this episode.
-      </div>
-    <% end %>
+      <% else %>
+        <div class="alert alert-info sci-fi-bg">
+          <h5 class="text-rick-green">No residents found</h5>
+          <p class="text-portal-blue">This location currently has no known residents.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="sci-fi-bg">
+      <h3 class="text-toxic-green">Characters Originally From Here (<span class="text-portal-blue"><%= @location.origin_characters.count %></span>)</h3>
+
+      <% if @location.origin_characters.any? %>
+        <div class="row">
+          <% @location.origin_characters.limit(6).each do |character| %>
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div class="rick-card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <% if character.image_url.present? %>
+                      <%= image_tag character.image_url, class: "rounded-circle me-3 neon-glow", style: "width: 50px; height: 50px; object-fit: cover; border: 2px solid var(--toxic-green);" %>
+                    <% end %>
+                    <div>
+                      <h6 class="card-title mb-1 text-rick-green"><%= character.name %></h6>
+                      <div class="mb-1">
+                        <span class="badge bg-<%= character.status == 'Alive' ? 'success' : character.status == 'Dead' ? 'danger' : 'secondary' %> status-<%= character.status.downcase %>">
+                          <%= character.status %>
+                        </span>
+                        <span class="badge bg-secondary"><%= character.species %></span>
+                      </div>
+                      <small class="text-muted">
+                        <strong class="text-portal-blue">Current:</strong>
+                        <span class="text-toxic-green"><%= character.current_location&.name || 'Unknown' %></span>
+                      </small>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <%= link_to "View Character", character_path(character), class: "portal-btn btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <% if @location.origin_characters.count > 6 %>
+          <div class="text-center mt-3">
+            <p class="text-muted">
+              Showing first 6 characters.
+              <span class="text-portal-blue"><%= @location.origin_characters.count - 6 %></span> more characters originated from here.
+            </p>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="alert alert-info sci-fi-bg">
+          <h5 class="text-rick-green">No origin characters found</h5>
+          <p class="text-portal-blue">No known characters originated from this location.</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="mt-4">
-  <%= link_to "← Back to Episodes", episodes_path, class: "btn btn-secondary" %>
+  <%= link_to "← Back to Locations", locations_path, class: "portal-btn" %>
 </div>

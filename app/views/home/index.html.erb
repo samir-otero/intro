@@ -1,21 +1,20 @@
-<div class="hero-section bg-primary text-white text-center py-5 mb-5 rounded">
+<div class="hero-section sci-fi-bg text-white text-center py-5 mb-5 rounded neon-glow">
   <div class="container">
-    <h1 class="display-4">Welcome to the Rick and Morty Database</h1>
-    <p class="lead">Explore characters, locations, and episodes from the multiverse!</p>
-
+    <h1 class="display-4 text-rick-green">Welcome to the Rick and Morty Database</h1>
+    <p class="lead text-portal-blue">Explore characters, locations, and episodes from the multiverse!</p>
     <div class="row mt-4">
       <div class="col-md-4">
-        <%= link_to characters_path, class: "btn btn-outline-light btn-lg mb-3" do %>
+        <%= link_to characters_path, class: "portal-btn btn-sm mb-3" do %>
           <i class="fas fa-users"></i> Explore Characters
         <% end %>
       </div>
       <div class="col-md-4">
-        <%= link_to locations_path, class: "btn btn-outline-light btn-lg mb-3" do %>
+        <%= link_to locations_path, class: "portal-btn btn-sm mb-3" do %>
           <i class="fas fa-map-marker-alt"></i> Discover Locations
         <% end %>
       </div>
       <div class="col-md-4">
-        <%= link_to episodes_path, class: "btn btn-outline-light btn-lg mb-3" do %>
+        <%= link_to episodes_path, class: "portal-btn btn-sm mb-3" do %>
           <i class="fas fa-tv"></i> Browse Episodes
         <% end %>
       </div>
@@ -25,28 +24,28 @@
 
 <div class="row">
   <div class="col-md-4">
-    <div class="card">
+    <div class="rick-card">
       <div class="card-body text-center">
-        <h5 class="card-title">Characters</h5>
-        <h2 class="text-primary"><%= @stats[:characters_count] %></h2>
+        <h5 class="card-title text-rick-green">Characters</h5>
+        <h2 class="text-portal-blue pulse"><%= @stats[:characters_count] %></h2>
         <p class="text-muted">Total Characters</p>
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card">
+    <div class="rick-card">
       <div class="card-body text-center">
-        <h5 class="card-title">Locations</h5>
-        <h2 class="text-success"><%= @stats[:locations_count] %></h2>
+        <h5 class="card-title text-toxic-green">Locations</h5>
+        <h2 class="text-rick-green pulse"><%= @stats[:locations_count] %></h2>
         <p class="text-muted">Total Locations</p>
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card">
+    <div class="rick-card">
       <div class="card-body text-center">
-        <h5 class="card-title">Episodes</h5>
-        <h2 class="text-warning"><%= @stats[:episodes_count] %></h2>
+        <h5 class="card-title text-morty-yellow">Episodes</h5>
+        <h2 class="text-portal-blue pulse"><%= @stats[:episodes_count] %></h2>
         <p class="text-muted">Total Episodes</p>
       </div>
     </div>
@@ -55,31 +54,31 @@
 
 <div class="row mt-4">
   <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Character Status Distribution</h5>
+    <div class="rick-card">
+      <div class="card-header bg-space-gradient">
+        <h5 class="text-rick-green">Character Status Distribution</h5>
       </div>
       <div class="card-body">
         <% @stats[:status_distribution].each do |status, count| %>
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge bg-<%= status == 'Alive' ? 'success' : status == 'Dead' ? 'danger' : 'secondary' %>">
+            <span class="badge bg-<%= status == 'Alive' ? 'success' : status == 'Dead' ? 'danger' : 'secondary' %> status-<%= status.downcase %>">
               <%= status.titleize %>
             </span>
-            <span><%= count %></span>
+            <span class="text-portal-blue"><%= count %></span>
           </div>
         <% end %>
       </div>
     </div>
   </div>
   <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Top Species</h5>
+    <div class="rick-card">
+      <div class="card-header bg-space-gradient">
+        <h5 class="text-toxic-green">Top Species</h5>
       </div>
       <div class="card-body">
         <% @stats[:top_species].each do |species, count| %>
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <span><%= species %></span>
+            <span class="text-portal-blue"><%= species %></span>
             <span class="badge bg-info"><%= count %></span>
           </div>
         <% end %>
