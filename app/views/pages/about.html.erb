@@ -1,97 +1,137 @@
 <div class="container">
-  <h1>About This Project</h1>
+  <h1 class="text-center mb-4 neon-glow">About This Project</h1>
 
   <div class="row">
     <div class="col-md-8">
-      <h2>Data Sources</h2>
-      <p>This Ruby on Rails application pulls data from multiple sources to create a comprehensive Rick and Morty database:</p>
+      <div class="sci-fi-bg rick-card">
+        <h2 class="text-portal-blue mb-3">Data Sources</h2>
+        <p class="text-light">This Ruby on Rails application pulls data from multiple sources to create a comprehensive Rick and Morty database:</p>
 
-      <h3>1. Rick and Morty API</h3>
-      <p>The primary data source is the <a href="https://rickandmortyapi.com/" target="_blank">Rick and Morty API</a>, which provides:</p>
-      <ul>
-        <li><strong>Characters:</strong> Information about all characters including their name, status, species, gender, origin, and current location</li>
-        <li><strong>Locations:</strong> Details about dimensions, planets, and other locations in the Rick and Morty universe</li>
-        <li><strong>Episodes:</strong> Complete episode information including air dates, episode codes, and character appearances</li>
-      </ul>
+        <div class="mb-4">
+          <h3 class="text-toxic-green mb-3">1. Rick and Morty API</h3>
+          <p class="text-light">The primary data source is the <a href="https://rickandmortyapi.com/" target="_blank" class="text-portal-blue">Rick and Morty API</a>, which provides:</p>
 
-      <h3>2. Faker Gem</h3>
-      <p>Additional variety is provided through the Faker gem, which generates:</p>
-      <ul>
-        <li>Additional fictional locations with random planet names and dimensions</li>
-        <li>Extra characters with randomized attributes to demonstrate data handling</li>
-      </ul>
+          <ul class="text-light">
+            <li><strong class="text-rick-green">Characters:</strong> Information about all characters including their name, status, species, gender, origin, and current location</li>
+            <li><strong class="text-rick-green">Locations:</strong> Details about dimensions, planets, and other locations in the Rick and Morty universe</li>
+            <li><strong class="text-rick-green">Episodes:</strong> Complete episode information including air dates, episode codes, and character appearances</li>
+          </ul>
+        </div>
 
-      <h2>Database Structure</h2>
-      <p>The database is designed with the following relationships:</p>
+        <div class="mb-4">
+          <h3 class="text-toxic-green mb-3">2. Faker Gem</h3>
+          <p class="text-light">Additional variety is provided through the Faker gem, which generates:</p>
 
-      <h3>Models and Associations</h3>
-      <ul>
-        <li><strong>Character:</strong> Central model with references to origin and current locations</li>
-        <li><strong>Location:</strong> Has many characters as residents and as origin</li>
-        <li><strong>Episode:</strong> Connected to characters through a join table</li>
-        <li><strong>CharacterEpisode:</strong> Join table managing many-to-many relationship between characters and episodes</li>
-      </ul>
+          <ul class="text-light">
+            <li>Additional fictional locations with random planet names and dimensions</li>
+            <li>Extra characters with randomized attributes to demonstrate data handling</li>
+          </ul>
+        </div>
 
-      <h3>Key Features</h3>
-      <ul>
-        <li>Search functionality across characters, locations, and episodes</li>
-        <li>Filtering by status, species, and location type</li>
-        <li>Hierarchical navigation between related models</li>
-        <li>Responsive Bootstrap-based design</li>
-        <li>Comprehensive character profiles with episode appearances</li>
-        <li>Location pages showing residents and origin characters</li>
-      </ul>
+        <h2 class="text-portal-blue mb-3">Database Structure</h2>
+        <p class="text-light">The database is designed with the following relationships:</p>
 
-      <h2>Technical Implementation</h2>
-      <p>This application demonstrates:</p>
-      <ul>
-        <li>API integration and data parsing</li>
-        <li>Complex database relationships (one-to-many and many-to-many)</li>
-        <li>RESTful routing and MVC architecture</li>
-        <li>Search and filtering functionality</li>
-        <li>Responsive web design with Bootstrap</li>
-        <li>Data validation and error handling</li>
-      </ul>
+        <div class="mb-4">
+          <h3 class="text-toxic-green mb-3">Models and Associations</h3>
+          <ul class="text-light">
+            <li><strong class="text-rick-green">Character:</strong> Central model with references to origin and current locations</li>
+            <li><strong class="text-rick-green">Location:</strong> Has many characters as residents and as origin</li>
+            <li><strong class="text-rick-green">Episode:</strong> Connected to characters through a join table</li>
+            <li><strong class="text-rick-green">CharacterEpisode:</strong> Join table managing many-to-many relationship between characters and episodes</li>
+          </ul>
+        </div>
+
+        <div class="mb-4">
+          <h3 class="text-toxic-green mb-3">Key Features</h3>
+          <ul class="text-light">
+            <li><span class="badge bg-info me-2">Search</span>Search functionality across characters, locations, and episodes</li>
+            <li><span class="badge bg-success me-2">Filter</span>Filtering by status, species, and location type</li>
+            <li><span class="badge bg-warning me-2">Navigate</span>Hierarchical navigation between related models</li>
+            <li><span class="badge bg-secondary me-2">Responsive</span>Responsive Bootstrap-based design</li>
+            <li><span class="badge bg-info me-2">Profiles</span>Comprehensive character profiles with episode appearances</li>
+            <li><span class="badge bg-success me-2">Locations</span>Location pages showing residents and origin characters</li>
+          </ul>
+        </div>
+
+        <h2 class="text-portal-blue mb-3">Technical Implementation</h2>
+        <p class="text-light">This application demonstrates:</p>
+
+        <ul class="text-light">
+          <li><span class="text-neon-pink">✓</span> API integration and data parsing</li>
+          <li><span class="text-neon-pink">✓</span> Complex database relationships (one-to-many and many-to-many)</li>
+          <li><span class="text-neon-pink">✓</span> RESTful routing and MVC architecture</li>
+          <li><span class="text-neon-pink">✓</span> Search and filtering functionality</li>
+          <li><span class="text-neon-pink">✓</span> Responsive web design with Bootstrap</li>
+          <li><span class="text-neon-pink">✓</span> Data validation and error handling</li>
+        </ul>
+      </div>
     </div>
 
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h5>Database Statistics</h5>
+      <div class="rick-card mb-4 pulse">
+        <div class="card-header bg-portal-gradient">
+          <h5 class="text-center text-white mb-0">Database Statistics</h5>
         </div>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li><strong>Characters:</strong> <%= Character.count %></li>
-            <li><strong>Locations:</strong> <%= Location.count %></li>
-            <li><strong>Episodes:</strong> <%= Episode.count %></li>
-            <li><strong>Character-Episode Relations:</strong> <%= CharacterEpisode.count %></li>
+            <li class="mb-2"><strong class="text-rick-green">Characters:</strong> <span class="badge bg-success"><%= Character.count %></span></li>
+            <li class="mb-2"><strong class="text-portal-blue">Locations:</strong> <span class="badge bg-info"><%= Location.count %></span></li>
+            <li class="mb-2"><strong class="text-toxic-green">Episodes:</strong> <span class="badge bg-warning"><%= Episode.count %></span></li>
+            <li class="mb-2"><strong class="text-neon-pink">Character-Episode Relations:</strong> <span class="badge bg-secondary"><%= CharacterEpisode.count %></span></li>
           </ul>
         </div>
       </div>
 
-      <div class="card mt-3">
-        <div class="card-header">
-          <h5>Data Sources</h5>
+      <div class="rick-card mb-4">
+        <div class="card-header bg-space-gradient">
+          <h5 class="text-center text-rick-green mb-0">Data Sources</h5>
         </div>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li>✅ Rick and Morty API</li>
-            <li>✅ Faker Gem</li>
-            <li>✅ 200+ Database Records</li>
+            <li class="mb-2"><span class="text-toxic-green">✅</span> Rick and Morty API</li>
+            <li class="mb-2"><span class="text-toxic-green">✅</span> Faker Gem</li>
+            <li class="mb-2"><span class="text-toxic-green">✅</span> 200+ Database Records</li>
           </ul>
+        </div>
+      </div>
+
+      <div class="rick-card">
+        <div class="card-header bg-portal-gradient">
+          <h5 class="text-center text-white mb-0">Portal Status</h5>
+        </div>
+        <div class="card-body text-center">
+          <div class="portal-spinner mb-3" style="width: 50px; height: 50px; border: 3px solid var(--portal-blue); border-top: 3px solid var(--rick-green); border-radius: 50%; margin: 0 auto;"></div>
+          <p class="text-portal-blue mb-0">Interdimensional Database</p>
+          <p class="text-toxic-green mb-0">Status: <span class="badge bg-success">ONLINE</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="sci-fi-bg rick-card">
+        <h2 class="text-portal-blue mb-4 text-center">Entity Relationship Diagram</h2>
+        <div class="card bg-space-gradient">
+          <div class="card-body text-center">
+            <img src="<%= asset_path('erd_diagram.png') %>" alt="Entity Relationship Diagram" class="img-fluid rounded" style="max-width: 100%; height: auto; filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));">
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row mt-4">
-    <div class="col-12">
-      <h2>Entity Relationship Diagram</h2>
-      <div class="card">
-        <div class="card-body">
-          <img src="<%= asset_path('erd_diagram.png') %>" alt="Entity Relationship Diagram" class="img-fluid">
-        </div>
-      </div>
+    <div class="col-12 text-center">
+      <button class="portal-btn me-3">
+        <span class="text-white">Explore Characters</span>
+      </button>
+      <button class="portal-btn me-3">
+        <span class="text-white">Browse Locations</span>
+      </button>
+      <button class="portal-btn">
+        <span class="text-white">View Episodes</span>
+      </button>
     </div>
   </div>
-  </div>
+</div>
