@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   resources :locations, only: [:index, :show]
   resources :episodes, only: [:index, :show]
   get "about", to: "pages#about", as: :about
+  get "index", to: "home#index", as: :index
 
-  root "characters#index"
+  root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

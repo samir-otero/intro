@@ -115,7 +115,7 @@ class RickAndMortySeeder
     location = Location.create!(
       api_id: location_data['id'],
       name: location_data['name'],
-      location_type: location_data['type'],  # Changed from 'type' to 'location_type'
+      location_type: location_data['type'],
       dimension: location_data['dimension']
     )
 

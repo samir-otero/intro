@@ -12,7 +12,6 @@ class CharactersController < ApplicationController
       @characters = @characters.where("LOWER(name) LIKE ?", query)
     end
 
-
     # Filter by status
     if params[:status].present?
       @characters = @characters.where(status: params[:status])
