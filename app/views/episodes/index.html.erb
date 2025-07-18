@@ -4,7 +4,7 @@
   <!-- Search Form -->
   <div class="d-flex gap-2">
     <%= form_with url: episodes_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
-      <%= f.text_field :search, placeholder: "Search episodes...", value: params[:search], class: "form-control" %>
+      <%= f.text_field :search, placeholder: "Search episodes...", value: params[:search], class: "form-control", id: "search-field" %>
       <%= f.submit "Search", class: "btn btn-primary" %>
     <% end %>
   </div>
