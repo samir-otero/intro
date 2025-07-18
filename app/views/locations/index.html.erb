@@ -6,7 +6,7 @@
     <div class="d-flex gap-2">
       <%= form_with url: locations_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
         <%= f.text_field :search, placeholder: "Search locations...", value: params[:search], class: "form-control", id: "search-field" %>
-        <%= f.select :location_type, options_for_select([['All Types', nil]] + @location_types.map { |t| [t, t] }, params[:location_type]), {}, { class: "form-select" } %>
+        <%= f.select :location_type, options_for_select([['All Types', '']] + @location_types.map { |t| [t, t] }, params[:location_type]), { prompt: false }, { class: "form-select" } %>
         <%= f.submit "Filter", class: "portal-btn" %>
       <% end %>
     </div>

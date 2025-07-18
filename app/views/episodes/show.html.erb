@@ -59,7 +59,7 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <% if character.image_url.present? %>
-                      <%= image_tag character.image_url, class: "rounded-circle me-3 neon-glow", style: "width: 60px; height: 60px; object-fit: cover; border: 2px solid var(--rick-green);" %>
+                      <%= image_tag character.image_url, alt: character.name, class: "rounded-circle me-3 neon-glow", style: "width: 60px; height: 60px; object-fit: cover; border: 2px solid var(--rick-green);" %>
                     <% end %>
                     <div>
                       <h6 class="card-title mb-1 text-rick-green"><%= character.name %></h6>
